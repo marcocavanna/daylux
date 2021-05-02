@@ -1,0 +1,36 @@
+{
+  "name": "daylux-client",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "craco build",
+    "start": "craco start"
+  },
+  "dependencies": {
+    "@appbuckets/react-ui": "^1.5.0-alpha.9",
+    "axios": "^0.21.1",
+    "butter-toast": "^3.3.5",
+    "daylux-interfaces": "^1.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-query": "^3.15.2"
+  },
+  "devDependencies": {
+    "@appbuckets/postcss-appbuckets-react-ui": "^0.1.6",
+    "@craco/craco": "^6.1.2",
+    "react-scripts": "^4.0.3",
+    "sass": "^1.32.12"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

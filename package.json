@@ -1,7 +1,22 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "start": "lerna run --stream --scope \"daylux-*\" start",
+    "release:version": "lerna version",
+    "release:build": "lerna run --stream --scope \"daylux-*\" build",
+    "release:deploy": "rimraf build && yarn release:build && yarn move-files",
+    "move-files": "mkdir build && mv packages/client/build build/client && mv packages/server/dist build/server"
+  },
   "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/compression": "^1.7.0",
+    "@types/deepmerge": "^2.2.0",
+    "@types/js-yaml": "^4.0.1",
+    "@types/node": "^14.14.36",
+    "@types/pigpio": "^1.2.2",
+    "@types/react": "^17.0.4",
+    "@types/react-dom": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
     "eslint": "^7.24.0",
@@ -11,6 +26,10 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "lerna": "^4.0.0",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^8.0.17",
+    "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
     "tslib": "^2.2.0",
     "typescript": "^4.1.2"
   },

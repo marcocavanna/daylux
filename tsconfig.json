@@ -138,7 +138,9 @@
     ],
 
     // Define monorepo paths
-    "baseUrl": "./"
+    "baseUrl": "./",
+
+    "incremental": true
 
   },
 

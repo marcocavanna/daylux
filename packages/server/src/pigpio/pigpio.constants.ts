@@ -1,0 +1,2 @@
+export const PIGPIO_SERVICE_TOKEN = Symbol('PIGPIO_SERVICE');
+export const PIGPIO_TOKEN = 'PIGPIO_TOKEN';

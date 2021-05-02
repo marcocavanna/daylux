@@ -1,0 +1,33 @@
+{
+  "name": "daylux-server",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "rimraf dist && nest build",
+    "start": "nest start --debug --watch"
+  },
+  "dependencies": {
+    "@nestjs/common": "^7.6.15",
+    "@nestjs/core": "^7.6.15",
+    "@nestjs/platform-express": "^7.6.15",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "compression": "^1.7.4",
+    "daylux-interfaces": "^1.0.0",
+    "deepmerge": "^4.2.2",
+    "dot-prop": "^6.0.1",
+    "helmet": "^4.5.0",
+    "js-yaml": "^4.1.0",
+    "pigpio": "^3.3.1",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^6.6.6"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^7.6.0",
+    "@nestjs/schematics": "^7.3.0",
+    "@nestjs/testing": "^7.6.15"
+  }
+}

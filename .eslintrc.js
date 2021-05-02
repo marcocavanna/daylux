@@ -1,19 +1,20 @@
 module.exports = {
-  root         : true,
-  parser       : '@typescript-eslint/parser',
-  parserOptions: {
+  root          : true,
+  parser        : '@typescript-eslint/parser',
+  ignorePatterns: [ '**/build', '**/dist' ],
+  parserOptions : {
     ecmaVersion: 7,
-    project    : [ './tsconfig.eslint.json' ]
+    project    : [ './tsconfig.json' ]
   },
-  plugins      : [
+  plugins       : [
     'eslint-plugin-react-hooks',
     '@typescript-eslint/eslint-plugin'
   ],
-  extends      : [
+  extends       : [
     'airbnb-typescript',
     'plugin:react-hooks/recommended'
   ],
-  rules        : {
+  rules         : {
     // Base Rules
     'array-bracket-spacing'            : [ 'error', 'always' ],
     'arrow-body-style'                 : [ 'off' ],
@@ -32,6 +33,7 @@ module.exports = {
       }
     ],
     'no-case-declarations'             : [ 'off' ],
+    'no-multi-spaces'                  : [ 'off' ],
     'no-multiple-empty-lines'          : [
       'error',
       {

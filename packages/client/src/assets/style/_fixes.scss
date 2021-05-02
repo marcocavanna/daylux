@@ -1,0 +1,22 @@
+/// ----
+///   Fixes
+///
+///   Use this file to fix some ReactBucket CSS errors
+///   this classes could be add to ReactBucket repository
+///   using a pull request
+/// ----
+
+@include on-screen('phone') {
+  .toast-container {
+    > ul,
+    > ul > li {
+      width: 320px;
+
+      .toast {
+        border-radius: $border-radius-normal;
+        padding: 1em 1.25em;
+        @include smoothShadow(5)
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+/// ----
+///   Generic Classes
+///
+///   In this file you could add all generic classes
+///   not related directly to some specific element or functionality
+/// ----
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 8px 0;
+
+  > .navbar-content {
+    border-radius: 8px;
+    background-color: $primary;
+    @include smoothShadow(3);
+    display: flex;
+    align-items: center;
+    padding: 0 8px 0 16px;
+    height: 56px;
+
+    > h4 {
+      color: $white;
+      flex-grow: 1;
+      padding: 0 16px;
+      margin-bottom: 0;
+    }
+
+    > .settings-link {
+      margin-left: auto;
+    }
+  }
+
+  svg.logo {
+    fill: $white;
+    font-size: 2.5em;
+  }
+}

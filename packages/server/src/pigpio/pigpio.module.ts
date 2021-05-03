@@ -1,5 +1,7 @@
 import { Module, DynamicModule, Provider } from '@nestjs/common';
 
+import { ConfigService } from '../config/config.service';
+
 import { PIGPIO_SERVICE_TOKEN } from './pigpio.constants';
 
 import { PigpioHostModule } from './pigpio-host.module';
@@ -31,7 +33,7 @@ export class PigpioModule {
       useFactory: async (pigpioService: PigpioService) => {
         return pigpioService.initConnector(options);
       },
-      inject    : [ PIGPIO_SERVICE_TOKEN ]
+      inject    : [ PIGPIO_SERVICE_TOKEN, ConfigService ]
     };
 
     return {

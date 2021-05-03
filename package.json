@@ -9,9 +9,10 @@
     "move-files": "mkdir build && mv packages/client/build build/client && mv packages/server/dist build/server"
   },
   "devDependencies": {
-    "@types/express": "^4.17.11",
     "@types/compression": "^1.7.0",
+    "@types/d3-ease": "^2.0.0",
     "@types/deepmerge": "^2.2.0",
+    "@types/express": "^4.17.11",
     "@types/js-yaml": "^4.0.1",
     "@types/node": "^14.14.36",
     "@types/pigpio": "^1.2.2",

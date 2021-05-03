@@ -18,7 +18,7 @@ const AdjustLux: React.VFC = () => {
 
   const { query } = useAppContext();
 
-  const [ kelvin, setKelvin ] = React.useState(query.data?.lux.kelvin || 3000);
+  const [ kelvin, setKelvin ] = React.useState(query.data?.lux.temperature || 3000);
   const [ intensity, setIntensity ] = React.useState(query.data?.lux.intensity || 0);
 
 
@@ -57,8 +57,8 @@ const AdjustLux: React.VFC = () => {
     (nothing: null, sliderProps: SliderProps) => {
       luxMutation.mutate({
         intensity,
-        kelvin  : sliderProps.value,
-        duration: 2500
+        temperature: sliderProps.value,
+        duration   : 2500
       });
     },
     [ luxMutation, intensity ]
@@ -67,9 +67,9 @@ const AdjustLux: React.VFC = () => {
   const handleIntensitySlideEnd = React.useCallback(
     (nothing: null, sliderProps: SliderProps) => {
       luxMutation.mutate({
-        kelvin,
-        intensity: sliderProps.value,
-        duration : 2500
+        temperature: kelvin,
+        intensity  : sliderProps.value,
+        duration   : 2500
       });
     },
     [ luxMutation, kelvin ]

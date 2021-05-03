@@ -15,6 +15,7 @@
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "compression": "^1.7.4",
+    "d3-ease": "^2.0.0",
     "daylux-interfaces": "^1.0.0",
     "deepmerge": "^4.2.2",
     "dot-prop": "^6.0.1",

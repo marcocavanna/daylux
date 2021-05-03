@@ -5,9 +5,9 @@ export interface Lux {
   /** Animation duration */
   duration?: number;
 
-  /** Kelvin temperature to Set */
-  kelvin: number;
-
   /** Intensity to Set */
   intensity: number;
+
+  /** Kelvin temperature to Set */
+  temperature: number;
 }

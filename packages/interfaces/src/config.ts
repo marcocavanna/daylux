@@ -10,8 +10,20 @@ export interface Config {
     /** Set duration of transition in seconds, 0 to disable */
     duration: number;
 
+    /** Animation Frame Duration, default is 16 */
+    frameDuration: number;
+
     /** Default intensity */
     intensity: number;
+
+    /** Max Lux Temperature */
+    maxTemperature: number;
+
+    /** Lower Lux Temperature */
+    minTemperature: number;
+
+    /** Default PWM Range */
+    pwmRange: number;
   };
 
   /** Last set Lux */

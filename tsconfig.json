@@ -89,7 +89,7 @@
 
     // Report errors on unused local variables.
     // https://www.typescriptlang.org/tsconfig#noUnusedLocals
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
 
     // TypeScript will issue an error if a program tries
     // to include a file by a casing different from the casing on disk

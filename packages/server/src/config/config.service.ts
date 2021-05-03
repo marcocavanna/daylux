@@ -79,8 +79,16 @@ export class ConfigService {
   }
 
 
-  public get<TPath extends Path<Config>>(path: TPath): FieldPathValue<Config, TPath> | undefined {
-    return dotProp.get(this.store, path);
+  public get<TPath extends Path<Config>>(path: TPath): FieldPathValue<Config, TPath> {
+    const value = dotProp.get(this.store, path);
+
+    if (value === undefined) {
+      const error = new Error(`You are trying to access to '${path}' value, but it is undefined`);
+      this.logger.error(error);
+      throw error;
+    }
+
+    return value as FieldPathValue<Config, TPath>;
   }
 
 

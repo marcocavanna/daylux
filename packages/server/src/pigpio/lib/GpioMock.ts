@@ -101,62 +101,62 @@ export class GpioMock {
     /** Create the Logger */
     this.logger = new Logger(`GPIO ${this.gpio}`);
 
-    this.logger.log('Initializing...', 'constructor');
+    this.logger.log('Initializing...');
 
     if (typeof options.mode === 'number') {
       this._mode = options.mode;
-      this.logger.log(`Setting mode = ${options.mode}`, 'constructor');
+      this.logger.log(`Setting mode = ${options.mode}`);
     }
   }
 
 
   mode(mode: number): GpioMock {
-    this.logger.log(`Setting mode = ${mode}`, 'mode');
+    this.logger.log(`Setting mode = ${mode}`);
     this._mode = mode;
     return this;
   }
 
 
   getMode(): number {
-    this.logger.log(`Getting mode = ${this.mode}`, 'getMode');
+    this.logger.log(`Getting mode = ${this.mode}`);
     return this._mode;
   }
 
 
   pullUpDown(pud: number): GpioMock {
-    this.logger.log(`Setting pullUpDown = ${pud}`, 'pullUpDown');
+    this.logger.log(`Setting pullUpDown = ${pud}`);
     return this;
   }
 
 
   digitalRead(): number {
-    this.logger.log(`Getting digitalValue = ${this.digitalValue}`, 'digitalRead');
+    this.logger.log(`Getting digitalValue = ${this.digitalValue}`);
     return this.digitalValue;
   }
 
 
   digitalWrite(level: 1 | 0): GpioMock {
-    this.logger.log(`Setting value = ${level}`, 'digitalWrite');
+    this.logger.log(`Setting value = ${level}`);
     this.digitalValue = level;
     return this;
   }
 
 
   trigger(pulseLen: number, level: number): GpioMock {
-    this.logger.log(`Triggering, pulseLen: ${pulseLen}, level: ${level}`, 'trigger');
+    this.logger.log(`Triggering, pulseLen: ${pulseLen}, level: ${level}`);
     return this;
   }
 
 
   pwmWrite(dutyCycle: number): GpioMock {
-    this.logger.log(`Setting dutyCycle = ${dutyCycle}`, 'pwmWrite');
+    this.logger.log(`Setting dutyCycle = ${dutyCycle}`);
     this.pwmValue = dutyCycle;
     return this;
   }
 
 
   hardwarePwmWrite(frequency: number, dutyCycle: number): GpioMock {
-    this.logger.log(`Setting dutyCycle = ${dutyCycle}, frequency = ${frequency}`, 'hardwarePwmWrite');
+    this.logger.log(`Setting dutyCycle = ${dutyCycle}, frequency = ${frequency}`);
     this.pwmValue = dutyCycle;
     this.frequency = frequency;
     return this;
@@ -164,63 +164,63 @@ export class GpioMock {
 
 
   getPwmDutyCycle() {
-    this.logger.log(`Getting dutyCycle = ${this.pwmValue}`, 'getPwmDutyCycle');
+    this.logger.log(`Getting dutyCycle = ${this.pwmValue}`);
     return this.pwmValue;
   }
 
 
   pwmRange(range: number): GpioMock {
-    this.logger.log(`Setting pwmRange = ${range}`, 'pwmRange');
+    this.logger.log(`Setting pwmRange = ${range}`);
     this._pwmRange = range;
     return this;
   }
 
 
   getPwmRange() {
-    this.logger.log(`Getting pwmRange = ${this._pwmRange}`, 'getPwmRange');
+    this.logger.log(`Getting pwmRange = ${this._pwmRange}`);
     return this._pwmRange;
   }
 
 
   getPwmRealRange() {
-    this.logger.log(`Getting pwmRange = ${this._pwmRange}`, 'getPwmRealRange');
+    this.logger.log(`Getting pwmRange = ${this._pwmRange}`);
     return this;
   }
 
 
   pwmFrequency(frequency: number): GpioMock {
-    this.logger.log(`Setting frequency = ${this.frequency}`, 'pwmFrequency');
+    this.logger.log(`Setting frequency = ${this.frequency}`);
     this.frequency = frequency;
     return this;
   }
 
 
   getPwmFrequency() {
-    this.logger.log(`Getting frequency = ${this.frequency}`, 'getPwmFrequency');
+    this.logger.log(`Getting frequency = ${this.frequency}`);
     return this.frequency;
   }
 
 
   servoWrite(pulseWidth: number): GpioMock {
-    this.logger.log(`Setting pulseWidth = ${this.servoPulseWidth}`, 'servoWrite');
+    this.logger.log(`Setting pulseWidth = ${this.servoPulseWidth}`);
     this.servoPulseWidth = Math.min(Math.max(pulseWidth, 500), 2500);
     return this;
   }
 
 
   getServoPulseWidth() {
-    this.logger.log(`Getting pulseWidth = ${this.servoPulseWidth}`, 'getServoPulseWidth');
+    this.logger.log(`Getting pulseWidth = ${this.servoPulseWidth}`);
     return this.servoPulseWidth;
   }
 
 
   removeAllListeners() {
-    this.logger.log('Removed all listeners for this pin', 'removeAllListeners');
+    this.logger.log('Removed all listeners for this pin');
   }
 
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   on(event: string, handler: (...args: any[]) => void) {
-    this.logger.log(`On ${event}] will run handler`, 'on');
+    this.logger.log(`On ${event}] will run handler`);
   }
 }

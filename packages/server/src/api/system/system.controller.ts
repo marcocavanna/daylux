@@ -42,7 +42,7 @@ export class SystemController {
     /** Set the new value */
     this.configService.set(patch.field, patch.value);
 
-    /** Return patched */
-    return patch.value;
+    /** Return full Config */
+    return this.configService.getAll();
   }
 }

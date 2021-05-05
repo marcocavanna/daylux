@@ -22,7 +22,7 @@ export class ConfigService {
 
   private readonly logger: Logger = new Logger('ConfigService');
 
-  private readonly filePath: string = resolve(__dirname, '..', 'daylux.config.yml');
+  private readonly filePath: string = resolve(__dirname, '..', '..', 'daylux.config.yml');
 
   private readonly store: Config;
 

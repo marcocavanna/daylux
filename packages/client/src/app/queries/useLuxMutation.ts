@@ -14,7 +14,7 @@ export const useLuxMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation<Partial<Lux>, any, Partial<Lux>, LuxStatusResponse | undefined>(
-    (partialLux) => axios.post('/api/set-lux', {}, { params: partialLux }), {
+    (partialLux) => axios.post('/api/lux', partialLux), {
       /** On mutating cancel get-config query */
       onMutate: async (partialLux) => {
         /** Cancel old query */

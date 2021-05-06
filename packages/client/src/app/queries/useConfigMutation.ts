@@ -15,8 +15,8 @@ export const useConfigMutation = <TPath extends Path<Config>>(field: TPath) => {
   const queryClient = useQueryClient();
 
   return useMutation<FieldPathValue<Config, TPath>, any, FieldPathValue<Config, TPath>, LuxStatusResponse | undefined>(
-    (value) => axios.post(
-      '/api/set-config',
+    (value) => axios.patch(
+      '/api/system/config',
       {
         field,
         value

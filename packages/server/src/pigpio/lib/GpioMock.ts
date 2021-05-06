@@ -101,6 +101,8 @@ export class GpioMock {
     /** Create the Logger */
     this.logger = new Logger(`GPIO ${this.gpio}`);
 
+    this.logger.log = () => null;
+
     this.logger.log('Initializing...');
 
     if (typeof options.mode === 'number') {

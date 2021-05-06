@@ -140,7 +140,11 @@
     // Define monorepo paths
     "baseUrl": "./",
 
-    "incremental": true
+    "incremental": true,
+
+    "paths": {
+      "daylux-interfaces": ["./packages/interfaces"]
+    }
 
   },
 

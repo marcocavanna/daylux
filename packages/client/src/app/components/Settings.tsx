@@ -38,7 +38,7 @@ const LuxSettings: React.VFC = () => {
 
   const handleTestLocation = React.useCallback(
     () => {
-      axios.get('/api/weather');
+      axios.get('/api/system/location');
     },
     []
   );

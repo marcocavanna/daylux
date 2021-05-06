@@ -1,5 +1,6 @@
 import { Module, DynamicModule, Provider } from '@nestjs/common';
 
+import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 
 import { PIGPIO_SERVICE_TOKEN } from './pigpio.constants';
@@ -12,7 +13,7 @@ import { PigpioFactory } from './interfaces';
 
 @Module({
 
-  imports: [ PigpioHostModule ],
+  imports: [ PigpioHostModule, ConfigModule ],
 
   providers: [
     {

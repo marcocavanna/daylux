@@ -1,7 +1,9 @@
 import { BadRequestException, Body, Controller, Get, Patch, ValidationPipe } from '@nestjs/common';
 
-import { ConfigService } from '../../config';
+import { ConfigService } from '../../config/config.service';
 import { PigpioService } from '../../pigpio/pigpio.service';
+import { WeatherService } from '../../weather/weather.service';
+
 import { ValidatedConfigPatch } from './validators/config.validator';
 
 
@@ -10,7 +12,8 @@ export class SystemController {
 
   constructor(
     private readonly configService: ConfigService,
-    private readonly pigpioService: PigpioService
+    private readonly pigpioService: PigpioService,
+    private readonly weatherService: WeatherService
   ) {
   }
 
@@ -44,5 +47,11 @@ export class SystemController {
 
     /** Return full Config */
     return this.configService.getAll();
+  }
+
+
+  @Get('/weather')
+  public getWeatherData(): any {
+
   }
 }

@@ -7,6 +7,8 @@ import type { Lux } from 'daylux-interfaces';
 
 import { ConfigService } from '../config/config.service';
 
+import { LuxResponse } from '../responses';
+
 import { Deferred } from '../utils/Deferred';
 import { GpioDynamicModuleImportException, GpioModuleNotLoadedException } from './errors';
 
@@ -271,7 +273,7 @@ export class PigpioService {
    * This function will ge current PWM of two pin and
    * will compute kelvin, intensity and intensity booster
    * -------- */
-  public getLux(): Lux {
+  public getLux(): LuxResponse {
     /** Get current PWM */
     const currentWarmPwm = this.getPwmDutyCycle(this.warmPin);
     const currentColdPwm = this.getPwmDutyCycle(this.coldPin);
@@ -292,17 +294,15 @@ export class PigpioService {
     let intensity = idealPwmReference !== 0
       ? currentPwmReference / idealPwmReference
       : 0;
-    let boostIntensity = 0;
 
     if (intensity > 1) {
-      boostIntensity = intensity - 1;
       intensity = 1;
     }
 
     return {
       intensity: Math.round(intensity * 100),
-      boostIntensity,
-      temperature
+      temperature,
+      duration : 0
     };
   }
 
@@ -314,9 +314,8 @@ export class PigpioService {
    * computing it from Kelvin and Intensity
    * If a valid non zero duration is passed, it produce an animation
    * -------- */
-  public setLux(lux: Lux): Promise<void> {
+  public setLux(lux: Lux): Promise<LuxResponse> {
     const {
-      boostIntensity,
       temperature,
       intensity,
       duration: _duration
@@ -347,20 +346,14 @@ export class PigpioService {
     warmPwm *= intensity / 100;
     coldPwm *= intensity / 100;
 
-    if (boostIntensity) {
-      const differenceToMax = boostIntensity * (this.pwmRange - (coldPwm > warmPwm
-        ? coldPwm
-        : warmPwm));
-
-      coldPwm += Math.round(differenceToMax);
-      warmPwm += Math.round(differenceToMax);
-    }
-
     /** Direct set data */
     if (typeof _duration !== 'number' || _duration === 0) {
       this.warmPin.pwmWrite(warmPwm);
       this.coldPin.pwmWrite(coldPwm);
-      return Promise.resolve();
+      return Promise.resolve({
+        ...lux,
+        duration: 0
+      });
     }
 
     const duration = Math.max(_duration ?? 0, this.frameDuration);
@@ -373,7 +366,10 @@ export class PigpioService {
 
     /** If no difference, abort */
     if (warmPwmDifference === 0 && coldPwmDifference === 0) {
-      return Promise.resolve();
+      return Promise.resolve({
+        ...lux,
+        duration
+      });
     }
 
     /** Generate a new WorkID */
@@ -383,7 +379,7 @@ export class PigpioService {
     this.dutyCycleId = currentDutyCycleId;
 
     /** Build transition props */
-    const transitionDefer = new Deferred<void>();
+    const transitionDefer = new Deferred<LuxResponse>();
     const stepCount = Math.round(duration / this.frameDuration);
 
     let t = 0;
@@ -429,6 +425,10 @@ export class PigpioService {
       }
       else {
         self.stopCurrentDutyCycle();
+        transitionDefer.resolve({
+          ...lux,
+          duration
+        });
       }
     }
 

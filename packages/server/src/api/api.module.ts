@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '../config/config.module';
 
-import { PigpioModule } from '../pigpio/pigpio.module';
+import { WeatherModule } from '../weather/weather.module';
 
 import { SystemController } from './system/system.controller';
 import { LuxController } from './lux/lux.controller';
@@ -8,7 +9,10 @@ import { LuxController } from './lux/lux.controller';
 
 @Module({
 
-  imports: [ PigpioModule ],
+  imports: [
+    ConfigModule,
+    WeatherModule
+  ],
 
   controllers: [ SystemController, LuxController ]
 

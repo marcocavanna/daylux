@@ -1,4 +1,5 @@
 import { Module, Global } from '@nestjs/common';
+import { ConfigModule } from '../config/config.module';
 
 import { PIGPIO_SERVICE_TOKEN, PIGPIO_TOKEN } from './pigpio.constants';
 
@@ -7,6 +8,8 @@ import { PigpioService } from './pigpio.service';
 
 @Global()
 @Module({
+
+  imports: [ ConfigModule ],
 
   providers: [
     {

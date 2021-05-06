@@ -9,7 +9,7 @@ export const defaultConfig: Config = {
     intensity     : 100,
     maxTemperature: 6000,
     minTemperature: 3000,
-    pwmRange      : 255
+    pwmRange      : 3000
   },
   lastLux      : null,
   location     : {

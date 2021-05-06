@@ -64,7 +64,7 @@ const useLuxStatus = (): UseLuxStatusResult => {
     queryKey: [ 'get-status' ],
     enabled : refetchEnabled,
     queryFn : async () => {
-      const response = await axios.get<LuxStatusResponse>('/api/get-status');
+      const response = await axios.get<LuxStatusResponse>('/api/system/status');
       return response.data;
     }
   });

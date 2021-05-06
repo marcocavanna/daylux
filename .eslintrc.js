@@ -24,6 +24,7 @@ module.exports = {
     'import/no-cycle'                  : [ 'off' ],
     'import/no-extraneous-dependencies': [ 'off' ],
     'import/prefer-default-export'     : [ 'off' ],
+    'max-classes-per-file'             : [ 'off' ],
     'max-len'                          : [
       'error',
       {

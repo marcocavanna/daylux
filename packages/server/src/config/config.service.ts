@@ -28,6 +28,8 @@ export class ConfigService {
 
 
   constructor() {
+    this.logger.verbose('Module Initialized');
+
     /** Check initial config exists */
     if (!existsSync(this.filePath)) {
       this.logger.verbose('Default yml config file not found. Create new one');
@@ -45,7 +47,7 @@ export class ConfigService {
     }
 
     /** Deep merge savedStore with default */
-    this.store = deepmerge<Config>(defaultConfig, savedStore);
+    this.store = deepmerge<Config>(defaultConfig || {}, savedStore || {});
 
     /** Refresh saved file */
     this.saveStore(savedStore, { sync: true });

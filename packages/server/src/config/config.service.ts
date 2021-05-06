@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
+import envPaths from 'env-paths';
 
-import { existsSync, writeFileSync, writeFile, readFileSync } from 'fs';
+import { existsSync, writeFileSync, writeFile, readFileSync, mkdirSync } from 'fs';
 
 import { resolve } from 'path';
 import * as yaml from 'js-yaml';
@@ -22,7 +23,9 @@ export class ConfigService {
 
   private readonly logger: Logger = new Logger('ConfigService');
 
-  private readonly filePath: string = resolve(__dirname, '..', '..', 'daylux.config.yml');
+  private readonly configDirectory = envPaths('daylux');
+
+  private readonly filePath: string = resolve(this.configDirectory.config, 'daylux.config.yml');
 
   private readonly store: Config;
 
@@ -30,8 +33,11 @@ export class ConfigService {
   constructor() {
     this.logger.verbose('Module Initialized');
 
+
     /** Check initial config exists */
     if (!existsSync(this.filePath)) {
+      /** Create the parent folder */
+      mkdirSync(this.configDirectory.config, { recursive: true });
       this.logger.verbose('Default yml config file not found. Create new one');
       this.saveStore(defaultConfig, { sync: true });
     }

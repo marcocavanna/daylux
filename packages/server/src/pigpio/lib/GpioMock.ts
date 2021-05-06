@@ -96,12 +96,14 @@ export class GpioMock {
   private logger: Logger;
 
 
-  constructor(private readonly gpio: number, options: GpioOptions = {}) {
+  constructor(private readonly gpio: number, options: GpioOptions = {}, disableLogging = false) {
 
     /** Create the Logger */
     this.logger = new Logger(`GPIO ${this.gpio}`);
 
-    this.logger.log = () => null;
+    if (disableLogging) {
+      this.logger.log = () => null;
+    }
 
     this.logger.log('Initializing...');
 

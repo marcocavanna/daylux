@@ -52,6 +52,6 @@ export class SystemController {
 
   @Get('/weather')
   public getWeatherData(): any {
-
+    return this.weatherService.getWeatherData();
   }
 }

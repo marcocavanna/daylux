@@ -36,7 +36,7 @@ export class PigpioService {
    * -------- */
   private isInitializingConnector: boolean = false;
 
-  private initConnectorDefer: Deferred<typeof Gpio> = new Deferred<typeof Gpio>();
+  private initConnectorDefer: Deferred<PigpioService> = new Deferred<PigpioService>();
 
   private Gpio: typeof Gpio | undefined;
 
@@ -92,11 +92,11 @@ export class PigpioService {
   /* --------
    * Connector Init
    * -------- */
-  public async initConnector(options?: PigpioFactory): Promise<typeof Gpio> {
+  public async initConnector(options?: PigpioFactory): Promise<PigpioService> {
     /** If a connector already exists, return it */
     if (this.Gpio) {
       this.logger.verbose('A valid Gpio Constructor already exists');
-      return Promise.resolve(this.Gpio);
+      return Promise.resolve(this);
     }
 
     /** If module has not been found, but promise has already be resolve, throw an error */
@@ -133,9 +133,9 @@ export class PigpioService {
 
       this.isInitializingConnector = false;
 
-      this.initConnectorDefer.resolve(this.Gpio);
+      this.initConnectorDefer.resolve(this);
 
-      return this.Gpio;
+      return this;
     }
     catch (error) {
       this.isInitializingConnector = false;

@@ -115,9 +115,11 @@ const LuxSettings: React.VFC = () => {
 
   const handleClearTestLocationData = React.useCallback(
     () => {
-      setTestLocationResponse(null);
+      if (!luxMutation.isLoading) {
+        setTestLocationResponse(null);
+      }
     },
-    []
+    [ luxMutation.isLoading ]
   );
 
   const { weather } = testLocationResponse || {};
@@ -216,15 +218,18 @@ const LuxSettings: React.VFC = () => {
           }}
           actions={[
             {
-              key    : 1,
-              content: 'Chiudi',
-              onClick: handleClearTestLocationData
+              key     : 1,
+              disabled: luxMutation.isLoading,
+              content : 'Chiudi',
+              onClick : handleClearTestLocationData
             },
             {
-              key    : 2,
-              content: 'Imposta Luce Suggerita',
-              primary: true,
-              onClick: handleSetSuggestedLux
+              key     : 2,
+              disabled: luxMutation.isLoading,
+              loading : luxMutation.isLoading,
+              content : 'Imposta Luce Suggerita',
+              primary : true,
+              onClick : handleSetSuggestedLux
             }
           ]}
           content={(

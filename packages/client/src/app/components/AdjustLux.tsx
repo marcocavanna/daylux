@@ -1,8 +1,8 @@
-import Divider from '@appbuckets/react-ui/Divider';
 import * as React from 'react';
 
 import Box from '@appbuckets/react-ui/Box';
 import Checkbox, { CheckboxProps } from '@appbuckets/react-ui/Checkbox';
+import Divider from '@appbuckets/react-ui/Divider';
 import Header from '@appbuckets/react-ui/Header';
 import Slider, { SliderProps } from '@appbuckets/react-ui/Slider';
 
@@ -18,7 +18,7 @@ const AdjustLux: React.VFC = () => {
 
   const { query } = useAppContext();
 
-  const [ kelvin, setKelvin ] = React.useState(query.data?.lux.temperature || 3000);
+  const [ temperature, setTemperature ] = React.useState(query.data?.lux.temperature || 3000);
   const [ intensity, setIntensity ] = React.useState(query.data?.lux.intensity || 0);
 
 
@@ -41,7 +41,7 @@ const AdjustLux: React.VFC = () => {
 
   const handleKelvinSlideChange = React.useCallback(
     (event: any, sliderProps: SliderProps) => {
-      setKelvin(sliderProps.value || 0);
+      setTemperature(sliderProps.value || 0);
     },
     []
   );
@@ -67,12 +67,12 @@ const AdjustLux: React.VFC = () => {
   const handleIntensitySlideEnd = React.useCallback(
     (nothing: null, sliderProps: SliderProps) => {
       luxMutation.mutate({
-        temperature: kelvin,
-        intensity  : sliderProps.value,
-        duration   : 2500
+        temperature,
+        intensity: sliderProps.value,
+        duration : 2500
       });
     },
-    [ luxMutation, kelvin ]
+    [ luxMutation, temperature ]
   );
 
 
@@ -90,6 +90,7 @@ const AdjustLux: React.VFC = () => {
 
       <Box my={6}>
         <Checkbox
+          disabled={luxMutation.isLoading}
           textAlign={'center'}
           checked={!!query.data?.config.autoLux}
           label={'Modalità Automatica'}
@@ -104,18 +105,19 @@ const AdjustLux: React.VFC = () => {
 
           <Box my={6}>
             <CurrentLux
-              kelvin={kelvin}
+              kelvin={temperature}
               intensity={intensity}
             />
           </Box>
 
           <Box my={6}>
             <Slider
+              disabled={luxMutation.isLoading}
               label={'Temperatura'}
               step={25}
               min={3000}
               max={6000}
-              value={kelvin}
+              value={temperature}
               onChange={handleKelvinSlideChange}
               onAfterChange={handleKelvinSlideEnd}
               hint={'Vuoi una luce più calda o più fredda?'}
@@ -124,6 +126,7 @@ const AdjustLux: React.VFC = () => {
 
           <Box my={6}>
             <Slider
+              disabled={luxMutation.isLoading}
               label={'Intensità'}
               step={5}
               min={0}

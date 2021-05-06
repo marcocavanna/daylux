@@ -34,4 +34,7 @@ export class WeatherResponse implements DayluxWeatherData {
   @ApiProperty()
   public timestamp!: number;
 
+  @ApiProperty()
+  public suggestedLux!: { intensity: number; temperature: number };
+
 }

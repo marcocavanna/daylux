@@ -7,8 +7,6 @@ import compression from 'compression';
 
 import { AppModule } from './app.module';
 
-import * as pkg from '../package.json';
-
 
 async function bootstrap() {
 
@@ -31,7 +29,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('DayLux API')
     .setDescription('Manage DayLux device')
-    .setVersion(pkg.version)
+    .setVersion('1.0.0')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

@@ -259,10 +259,14 @@ export class PigpioService {
     const warmPwm = this.clampPwm(
       (this.pwmRange / 100) * (100 - ((clamped - this.minTemperature) / (this.minTemperature / 100)))
     );
+    const coldPwm = this.pwmRange - warmPwm;
+
+    const maxPwm = Math.max(coldPwm, warmPwm);
+    const toMaxMultiplier = (maxPwm + (this.pwmRange - maxPwm)) / maxPwm;
 
     return {
-      warmPwm,
-      coldPwm: this.pwmRange - warmPwm
+      warmPwm: warmPwm * toMaxMultiplier,
+      coldPwm: coldPwm * toMaxMultiplier
     };
   }
 

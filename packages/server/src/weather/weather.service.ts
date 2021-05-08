@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 
+import { Cron, CronExpression } from '@nestjs/schedule';
+
 import axios from 'axios';
 import dayjs from 'dayjs';
 import isLeapYear from 'dayjs/plugin/isLeapYear';
@@ -13,7 +15,12 @@ import { PigpioService } from '../pigpio/pigpio.service';
 
 import { clamp } from '../utils';
 
-import { InvalidLocationException, OpenWeatherMapException, WeatherAPINotFoundException } from './errors';
+import {
+  InvalidLocationException,
+  OpenWeatherMapException,
+  SetLuxInternalException,
+  WeatherAPINotFoundException
+} from './errors';
 
 
 dayjs.extend(isLeapYear);
@@ -30,6 +37,33 @@ export class WeatherService {
     private readonly pigpioService: PigpioService
   ) {
     this.logger.verbose('Module Initialized');
+  }
+
+
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  public async calculateLux() {
+    /** Get the AutoLux config */
+    const isAutoLuxEnabled = this.configService.get('autoLux');
+
+    /** If daylux is in manual mode, abort */
+    if (!isAutoLuxEnabled) {
+      return;
+    }
+
+    try {
+      /** Get weather data */
+      const weatherData = await this.getWeatherData();
+
+      /** Set the new Lux */
+      await this.pigpioService.setLux({
+        duration   : 5 * 60 * 1000,
+        temperature: weatherData.suggestedLux.temperature,
+        intensity  : weatherData.suggestedLux.intensity
+      });
+    }
+    catch (error) {
+      throw new SetLuxInternalException();
+    }
   }
 
 
@@ -70,8 +104,8 @@ export class WeatherService {
       const sunrise = dayjs(sunriseTimestamp);
       const sunsetTimestamp = data.sys.sunset * 1000;
       const sunset = dayjs(sunsetTimestamp);
-      const timestamp = data.dt * 1000;
-      const now = dayjs(timestamp);
+      const now = dayjs();
+      const timestamp = now.valueOf();
 
 
       // ----
@@ -165,7 +199,7 @@ export class WeatherService {
         [ 0, 1 ],
         !isAfternoon
           ? ((timestamp - offsetSunriseTimestamp) / (middayTimestamp - offsetSunriseTimestamp))
-          : (((timestamp - offsetSunsetTimestamp) / (sunsetTimestamp - offsetSunsetTimestamp)) * -1) + 1
+          : (((timestamp - middayTimestamp) / (offsetSunsetTimestamp - middayTimestamp)) * -1) + 1
       );
 
 

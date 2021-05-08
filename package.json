@@ -6,7 +6,7 @@
     "release:version": "lerna version",
     "release:build": "lerna run --stream --scope \"daylux-*\" build",
     "release:deploy": "rimraf build && yarn release:build && yarn move-files",
-    "move-files": "mkdir build && mv packages/client/build build/client && mv packages/server/dist build/server"
+    "move-files": "mkdir build && mv packages/client/build build/client && mv packages/server/dist build/server && cp packages/server/package.json build/server && cp ecosystem.config.js build && cp yarn.lock build/server"
   },
   "devDependencies": {
     "@types/compression": "^1.7.0",

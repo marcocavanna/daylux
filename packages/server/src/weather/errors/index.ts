@@ -1,6 +1,17 @@
 import { BadRequestException, InternalServerErrorException } from '@nestjs/common';
 
 
+export class SetLuxInternalException extends InternalServerErrorException {
+  constructor() {
+    super(
+      'weather/set-lux-error',
+      'An error occurred while setting new Lux'
+    );
+  }
+
+}
+
+
 export class WeatherAPINotFoundException extends BadRequestException {
   constructor() {
     super(

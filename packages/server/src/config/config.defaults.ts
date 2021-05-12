@@ -25,7 +25,7 @@ export const defaultConfig: Config = {
       SNOW              : 0.8,
       THUNDERSTORM      : 0.7
     },
-    midday       : 95,
+    midday       : 100,
     sunrise      : 5,
     sunriseOffset: 20,
     sunset       : 5,
@@ -39,20 +39,20 @@ export const defaultConfig: Config = {
   temperature  : {
     override          : {
       CLEAR             : null,
-      CLOUDS            : 5750,
-      DRIZZLE           : 6000,
+      CLOUDS            : 5250,
+      DRIZZLE           : 5500,
       FEW_CLOUDS        : null,
-      HEAVY_RAIN        : 6000,
-      HEAVY_THUNDERSTORM: 6000,
-      MIST              : 6000,
-      OVERCAST_CLOUDS   : 6000,
-      RAIN              : 6000,
-      SNOW              : 6000,
-      THUNDERSTORM      : 6000
+      HEAVY_RAIN        : 5500,
+      HEAVY_THUNDERSTORM: 5500,
+      MIST              : 5500,
+      OVERCAST_CLOUDS   : 5500,
+      RAIN              : 5500,
+      SNOW              : 5500,
+      THUNDERSTORM      : 5500
     },
-    maxPolyOutExponent: 5,
-    midday            : 5750,
-    minPolyOutExponent: 2,
+    maxPolyOutExponent: 6,
+    midday            : 4700,
+    minPolyOutExponent: 3,
     sunriseOrSunset   : 3000
   },
   weatherAPIKey: null,
